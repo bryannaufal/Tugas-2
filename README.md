@@ -16,11 +16,20 @@ mengimplementasikan konsep Model-View-Template
 
 #### 1. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html;
 
-![](assets/Diagram_MVT.jpg)
+![](assets/Diagram_MVT.PNG)
 
-Client melakukan request dengan url yang dimasukkan pada browser, lalu request tersebut akan masuk ke server django. Pada 'urls.py', request tersebut akan diarahkan ke 'views.py' yang sesuai. Di 'views.py' akan terjadi pemrosesan data yang nantinya akan dijadikan response ke client. 'views.py' juga mengirimkan query ke 'models.py'. 'models.py' berguna untuk menghubungkan dengan database sehingga akan terjadi transaksi data antara 'models.py' dengan database. 'views.py juga menghubungkan ke 'templates' yang berikan file HTML yang merupakan kerangka tampilan dari suatu website. Data yang diperoleh dari 'models.py' akan diterima oleh template melalui 'views.py'. Hal terakhir yang terjadi adalah response. Setelah data diolah, 'views.py' akan merender template lalu akan dikirim ke Client.
+Client melakukan request dengan url yang dimasukkan pada browser, lalu request tersebut akan masuk ke server django. Pada `urls.py`, request tersebut akan diarahkan ke `views.py` yang sesuai. Di `views.py` akan terjadi pemrosesan data yang nantinya akan dijadikan response ke client. `views.py` juga mengirimkan query ke `models.py`. `models.py` berguna untuk menghubungkan dengan database sehingga akan terjadi transaksi data antara `models.py` dengan database. `views.py` juga menghubungkan ke `templates` yang berikan file HTML yang merupakan kerangka tampilan dari suatu website. Data yang diperoleh dari `models.py` akan diterima oleh template melalui `views.py`. Hal terakhir yang terjadi adalah response. Setelah data diolah, `views.py` akan merender template lalu akan dikirim ke Client.
 
 #### Jelaskan kenapa menggunakan virtual environment? Apakah kita tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan virtual environment?
+
+Virtual Environment berfungsi untuk mengisolasi environment yang menjadi tempat project kita berjalan. Dengan adanya virtual environment, kita dapat mengembangkan project yang membutuhkan package dengan berbeda-beda versi. Hal ini dapat dilakukan karena masing-masing package akan terisolasi pada environmentnya masing-masing. 
+
+Jika kita ingin menjalankan project yang menggunakan python versi lama, sedangkan pada laptop kita terdapat python versi terbaru, maka kita perlu menghapus python versi terbaru dan meng-install python versi lama yang diperlukan. Agak merepotkan bukan? Dengan virtual environment kita tidak perlu menghapus python versi baru, tetapi python versi baru tersebut dapat berfungsi dengan baik selagi kita menggunakan python versi lama pada project kita. Hal itu, disebabkan karena masing-masing environment saling terisolasi sehingga tidak terjadi clash.
+
+Kita tetap bisa membuat aplikasi web berbasis Django tanpa menggunakan virtual environment. Namun, kita akan lumayan kesulitan ketika kita ingin menjalankan project dengan berbeda package yang diperlukan. Jadi penggunaan virtual environment sangat disarankan
+
+#### Jelaskan bagaimana cara kamu mengimplementasikan poin 1 sampai dengan 4 di atas.
+**Poin1**
 
 
 ## Cara Menggunakan
