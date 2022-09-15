@@ -16,7 +16,7 @@ mengimplementasikan konsep Model-View-Template
 
 #### 1. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html;
 
-![](assets/Diagram_MVT.PNG)
+![](https://github.com/bryannaufal/Tugas-2/blob/main/assets/Diagram_MVT.png)
 
 Client melakukan request dengan url yang dimasukkan pada browser, lalu request tersebut akan masuk ke server django. Pada `urls.py`, request tersebut akan diarahkan ke `views.py` yang sesuai. Di `views.py` akan terjadi pemrosesan data yang nantinya akan dijadikan response ke client. `views.py` juga mengirimkan query ke `models.py`. `models.py` berguna untuk menghubungkan dengan database sehingga akan terjadi transaksi data antara `models.py` dengan database. `views.py` juga menghubungkan ke `templates` yang berikan file HTML yang merupakan kerangka tampilan dari suatu website. Data yang diperoleh dari `models.py` akan diterima oleh template melalui `views.py`. Hal terakhir yang terjadi adalah response. Setelah data diolah, `views.py` akan merender template lalu akan dikirim ke Client.
 
