@@ -1,12 +1,27 @@
-# Template Proyek Django PBP
+# Tugas-2 (PBP)
 
 Pemrograman Berbasis Platform (CSGE602022) - diselenggarakan oleh Fakultas Ilmu Komputer Universitas Indonesia, Semester Ganjil 2022/2023
 
+**Nama : Rahmat Bryan Naufal**
+**NPM : 2106635650**
+**Kelas : PBP-C**
+
 *Read this in other languages: [Indonesian](README.md), [English](README.en.md)*
 
-## Pendahuluan
+## Deskripsi Tugas
 
-Repositori ini merupakan sebuah template yang dirancang untuk membantu mahasiswa yang sedang mengambil mata kuliah Pemrograman Berbasis Platform (CSGE602022) mengetahui struktur sebuah proyek aplikasi Django serta file dan konfigurasi yang penting dalam berjalannya aplikasi. Kamu dapat dengan bebas menyalin isi dari repositori ini atau memanfaatkan repositori ini sebagai pembelajaran sekaligus awalan dalam membuat sebuah proyek Django.
+mengimplementasikan konsep Model-View-Template
+
+## Jawaban Pertanyaan
+
+#### 1. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html;
+
+![](assets/Diagram_MVT.jpg)
+
+Client melakukan request dengan url yang dimasukkan pada browser, lalu request tersebut akan masuk ke server django. Pada 'urls.py', request tersebut akan diarahkan ke 'views.py' yang sesuai. Di 'views.py' akan terjadi pemrosesan data yang nantinya akan dijadikan response ke client. 'views.py' juga mengirimkan query ke 'models.py'. 'models.py' berguna untuk menghubungkan dengan database sehingga akan terjadi transaksi data antara 'models.py' dengan database. 'views.py juga menghubungkan ke 'templates' yang berikan file HTML yang merupakan kerangka tampilan dari suatu website. Data yang diperoleh dari 'models.py' akan diterima oleh template melalui 'views.py'. Hal terakhir yang terjadi adalah response. Setelah data diolah, 'views.py' akan merender template lalu akan dikirim ke Client.
+
+#### Jelaskan kenapa menggunakan virtual environment? Apakah kita tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan virtual environment?
+
 
 ## Cara Menggunakan
 
