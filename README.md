@@ -30,56 +30,54 @@ Kita tetap bisa membuat aplikasi web berbasis Django tanpa menggunakan virtual e
 
 #### Jelaskan bagaimana cara kamu mengimplementasikan poin 1 sampai dengan 4 di atas.
 **Poin1**
+Di dalam fungsi saya memanggil query ke model database lalu menyimpan hasil query yang diperoleh ke suatu variabel.
+```shell
+catalog_data = CatalogItem.objects.all()
+    context = {
+    'catalog_data': catalog_data,
+    'nama': 'Rahmat Bryan Naufal',
+    'npm': '2106635650'
+    }
+```
+Lalu saya mereturn sebuah halaman HTML yang dirender. Saya juga menambahkan context pada argumen agar context juga dirender sehingga data bisa muncul pada halaman HTML.
 
+**Poin2**
+Routings dilakukan pada file urls.py
+pada urls.py di folder katalog saya tambahkan kode berikut
+```shell
+app_name = 'katalog'
 
-## Cara Menggunakan
+urlpatterns = [
+    path('', show_katalog, name='show_katalog'),
+]
+```
 
-Apabila kamu ingin menggunakan repositori ini sebagai repositori awalan yang nantinya akan kamu modifikasi:
+pada urls.py di folder project_django saya menambahkan path pada urlpatterns
+```shell
+path('katalog/', include('katalog.urls'))
+```
+Dengan melakukan kedua hal di atas, ketika kita dapat mengakses halaman katalog dengan memasukkan url dengan /katalog
 
-1. Buka laman GitHub repositori templat kode, lalu klik tombol "**Use this template**"
-   untuk membuat salinan repositori ke dalam akun GitHub milikmu.
-2. Buka laman GitHub repositori yang dibuat dari templat, lalu gunakan perintah
-   `git clone` untuk menyalin repositorinya ke suatu lokasi di dalam sistem
-   berkas (_filesystem_) komputermu:
+**Poin3**
+Context yang ikut dirender pada poin 1 perlu saya masukkan pada template HTML menggunakan sintaks Django. Saya melakukan iterasi kepada catalogs. Iterasi tersebut masih berupa objek sehingga kita perlu memanggil atributnya secara langsung. Berikut kode yang ditambahkan pada template HTML katalog:
+```shell
+{% for catalog in catalog_data %}
+      <tr>
+        <th>{{ catalog.item_name }}</th>
+        <th>{{ catalog.item_price }}</th>
+        <th>{{ catalog.item_stock }}</th>
+        <th>{{ catalog.rating }}</th>
+        <th>{{ catalog.description }}</th>
+        <th>{{ catalog.item_url }}</th>
+      </tr>
+    {% endfor %}
+```
+**Poin4**
+Pertama-tama, saya membuat aplikasi baru pada Heroku, lalu simpan nama aplikasi tersebut beserta key account saya. Lakukan pull, add, commit, dan push repositori tugas-2 yang ada di lokal. Setelah itu, kita perlu menambahkan dua variabel repositori secret pada github. Variabel tersebut digunakan untuk menyimpan nama aplikasi pada heroku dan juga key heroku saya. Setelah itu, kita dapat mendeploy aplikasi kita.
 
-   ```shell
-   git clone <URL ke repositori di GitHub> <path ke suatu lokasi di filesystem>
-   ```
-3. Masuk ke dalam repositori yang sudah di-_clone_ dan jalankan perintah berikut
-   untuk menyalakan _virtual environment_:
-
-   ```shell
-   python -m venv env
-   ```
-4. Nyalakan environment dengan perintah berikut:
-
-   ```shell
-   # Windows
-   .\env\Scripts\activate
-   # Linux/Unix, e.g. Ubuntu, MacOS
-   source env/bin/activate
-   ```
-5. Install dependencies yang dibutuhkan untuk menjalankan aplikasi dengan perintah berikut:
-
-   ```shell
-   pip install -r requirements.txt
-   ```
-
-6. Jalankan aplikasi Django menggunakan server pengembangan yang berjalan secara
-   lokal:
-
-   ```shell
-   python manage.py runserver
-   ```
-7. Bukalah `http://localhost:8000` pada browser favoritmu untuk melihat apakah aplikasi sudah berjalan dengan benar.
-
-## Contoh Deployment 
-
-Pada template ini, deployment dilakukan dengan memanfaatkan GitHub Actions sebagai _runner_ dan Heroku sebagai platform Hosting aplikasi. 
-
-Untuk melakukan deployment, kamu dapat melihat instruksi yang ada pada [Tutorial 0](https://pbp-fasilkom-ui.github.io/ganjil-2023/assignments/tutorial/tutorial-0).
-
-Untuk contoh aplikasi Django yang sudah di deploy, dapat kamu akses di [https://django-pbp-template.herokuapp.com/](https://django-pbp-template.herokuapp.com/)
+## Link Aplikasi Katalog Tugas-2
+Berikut link yang dapat diakses untuk membuka aplikasi yang sudah berhasil di-deploy
+[PBP-Tugas-2](https://katalog-tugas-2.herokuapp.com/)
 
 ## Credits
 
