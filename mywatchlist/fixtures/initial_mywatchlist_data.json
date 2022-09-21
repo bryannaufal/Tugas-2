@@ -1,0 +1,112 @@
+[
+    {
+        "model": "mywatchlist.watchitem",
+        "pk": 1,
+        "fields": {
+            "watched": "True",
+            "title": "Ford vs Ferrari",
+            "rating": "4",
+            "release_date": "2019-11-15",
+            "review": "American car designer Carroll Shelby and driver Ken Miles battle corporate interference and the laws of physics to build a revolutionary race car for Ford in order to defeat Ferrari at the 24 Hours of Le Mans in 1966."
+        }
+    },
+    {
+        "model": "mywatchlist.watchitem",
+        "pk": 2,
+        "fields": {
+            "watched": "True",
+            "title": "Ralph Breaks the Internet: Wreck-It Ralph",
+            "rating": "3",
+            "release_date": "2018-11-23",
+            "review": "Six years after the events of 'Wreck-It Ralph,' Ralph and Vanellope, now friends, discover a wi-fi router in their arcade, leading them into a new adventure."
+        }
+    },
+    {
+        "model": "mywatchlist.watchitem",
+        "pk": 3,
+        "fields": {
+            "watched": "True",
+            "title": "Cars",
+            "rating": "4",
+            "release_date": "2006-06-09",
+            "review": "On the way to the biggest race of his life, a hotshot rookie race car gets stranded in a rundown town, and learns that winning isn't everything in life."
+        }
+    },
+    {
+        "model": "mywatchlist.watchitem",
+        "pk": 4,
+        "fields": {
+            "watched": "False",
+            "title": "Jurassic World Dominion",
+            "rating": "3",
+            "release_date": "2022-06-08",
+            "review": "Four years after the destruction of Isla Nublar, Biosyn operatives attempt to track down Maisie Lockwood, while Dr Ellie Sattler investigates a genetically engineered swarm of giant insects."
+        }
+    },
+    {
+        "model": "mywatchlist.watchitem",
+        "pk": 5,
+        "fields": {
+            "watched": "True",
+            "title": "Finding Dory",
+            "rating": "4",
+            "release_date": "2016-06-16",
+            "review": "Friendly but forgetful blue tang Dory begins a search for her long-lost parents and everyone learns a few things about the real meaning of family along the way."
+        }
+    },
+    {
+        "model": "mywatchlist.watchitem",
+        "pk": 6,
+        "fields": {
+            "watched": "False",
+            "title": "The Avengers",
+            "rating": "4",
+            "release_date": "2012-05-04",
+            "review": "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity."
+        }
+    },
+    {
+        "model": "mywatchlist.watchitem",
+        "pk": 7,
+        "fields": {
+            "watched": "False",
+            "title": "Luca",
+            "rating": "4",
+            "release_date": "2021-06-18",
+            "review": "On the Italian Riviera, an unlikely but strong friendship grows between a human being and a sea monster disguised as a human."
+        }
+    },
+    {
+        "model": "mywatchlist.watchitem",
+        "pk": 8,
+        "fields": {
+            "watched": "True",
+            "title": "Captain Phillips",
+            "rating": "4",
+            "release_date": "2013-10-17",
+            "review": "The true story of Captain Richard Phillips and the 2009 hijacking by Somali pirates of the U.S.-flagged MV Maersk Alabama, the first American cargo ship to be hijacked in two hundred years."
+        }
+    },
+    {
+        "model": "mywatchlist.watchitem",
+        "pk": 9,
+        "fields": {
+            "watched": "False",
+            "title": "Solo: A Star Wars Story",
+            "rating": "3",
+            "release_date": "2018-05-23",
+            "review": "Board the Millennium Falcon and journey to a galaxy far, far away in an epic action-adventure that will set the course of one of the Star Wars saga's most unlikely heroes."
+        }
+    },
+    {
+        "model": "mywatchlist.watchitem",
+        "pk": 10,
+        "fields": {
+            "watched": "True",
+            "title": "Snowden",
+            "rating": "4",
+            "release_date": "2016-10-06",
+            "review": "The NSA's illegal surveillance techniques are leaked to the public by one of the agency's employees, Edward Snowden, in the form of thousands of classified documents distributed to the press."
+        }
+    }
+]
