@@ -22,9 +22,16 @@ def show_xml(request):
 
 def show_mywatchlist(request):
     watch_data = WatchItem.objects.all()
+    sum_watched = WatchItem.objects.filter(watched = True).count()
+    sum_not_watched = WatchItem.objects.filter(watched = False).count()
+    if sum_watched>sum_not_watched:
+        pesan = "Selamat, kamu sudah banyak menonton!"
+    else:
+        pesan = "Wah, kamu masih sedikit menonton!"
     context = {
         'watch_data': watch_data,
         'nama': 'Rahmat Bryan Naufal',
-        'npm': '2106635650'
+        'npm': '2106635650',
+        'pesan': pesan
     }
     return render(request, "mywatchlist.html", context)
