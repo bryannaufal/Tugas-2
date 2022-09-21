@@ -27,4 +27,4 @@ def show_mywatchlist(request):
         'nama': 'Rahmat Bryan Naufal',
         'npm': '2106635650'
     }
-    return render(request, "katalog.html", context)
+    return render(request, "mywatchlist.html", context)
