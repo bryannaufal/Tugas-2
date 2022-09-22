@@ -1,6 +1,6 @@
 from django.db import models
 
-class WatchItem(models.Model):
+class MyWatchList(models.Model):
     watched = models.BooleanField()
     title = models.CharField(max_length=255)
     rating = models.PositiveSmallIntegerField()
