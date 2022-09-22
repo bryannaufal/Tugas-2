@@ -16,17 +16,17 @@ Pengimplementasian Data Delivery Menggunakan Django
 
 #### Jelaskan perbedaan antara JSON, XML, dan HTML!
 
-![](https://github.com/bryannaufal/Tugas-2/blob/main/assets/Diagram_MVT.png)
+*JSON (JavaScript Object Notation)*
+JSON digunakan untuk menyimpan, membaca, serta menukar informasi dari web server agar dapat dilihat oleh pengguna. JSON sendiri dapat digunakan oleh berbagai bahasa pemrograman. JSON menyimpan elemennya secara efisien tapi tidak begitu rapi ketika dilihat. JSON juga punya array yang membuat transfer data lebih mudah
 
-Client melakukan request dengan url yang dimasukkan pada browser, lalu request tersebut akan masuk ke server django. Pada `urls.py`, request tersebut akan diarahkan ke `views.py` yang sesuai. Di `views.py` akan terjadi pemrosesan data yang nantinya akan dijadikan response ke client. `views.py` juga mengirimkan query ke `models.py`. `models.py` berguna untuk menghubungkan dengan database sehingga akan terjadi transaksi data antara `models.py` dengan database. `views.py` juga menghubungkan ke `templates` yang berikan file HTML yang merupakan kerangka tampilan dari suatu website. Data yang diperoleh dari `models.py` akan diterima oleh template melalui `views.py`. Hal terakhir yang terjadi adalah response. Setelah data diolah, `views.py` akan merender template lalu akan dikirim ke Client.
+*XML (Extensible Markup Language)*
+Sama seperti JSON, XML digunakan untuk menyimpan, membaca, serta menukar informasi dari web server agar dapat dilihat oleh pengguna. XML menyimpan elemennya lebih terstruktur tapi lebih tidak efisien dibandingkan JSON.
 
-#### Jelaskan kenapa menggunakan virtual environment? Apakah kita tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan virtual environment?
+*HTML (Hypertext Markup Language)*
+HTML digunakan sebagai kerangka dari suatu website. HTML biasanya digunakan bersama dengan CSS untuk mempercantik tampilan website
 
-Virtual Environment berfungsi untuk mengisolasi environment yang menjadi tempat project kita berjalan. Dengan adanya virtual environment, kita dapat mengembangkan project yang membutuhkan package dengan berbeda-beda versi. Hal ini dapat dilakukan karena masing-masing package akan terisolasi pada environmentnya masing-masing. 
-
-Jika kita ingin menjalankan project yang menggunakan python versi lama, sedangkan pada laptop kita terdapat python versi terbaru, maka kita perlu menghapus python versi terbaru dan meng-install python versi lama yang diperlukan. Agak merepotkan bukan? Dengan virtual environment kita tidak perlu menghapus python versi baru, tetapi python versi baru tersebut dapat berfungsi dengan baik selagi kita menggunakan python versi lama pada project kita. Hal itu, disebabkan karena masing-masing environment saling terisolasi sehingga tidak terjadi clash.
-
-Kita tetap bisa membuat aplikasi web berbasis Django tanpa menggunakan virtual environment. Namun, kita akan lumayan kesulitan ketika kita ingin menjalankan project dengan berbeda package yang diperlukan. Jadi penggunaan virtual environment sangat disarankan
+#### Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
+Sebuah website atau aplikasi yang dinamis tentu bisa menampilkan dan menerima banyak dan berbagai macam jenis data. Untuk mengirim dan menerima data tersebut agar dapat dipahami oleh kita sebagai manusia dan program komputer maka terdapat ketentuan-ketentuan atau format tertentu dalam mengerim dan menerima data tersebut. JSON, XML, dan HTML merupakan beberapa dari ketentuan dan format yang digunakan untuk data_delivery.
 
 #### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
 **Membuat suatu aplikasi baru bernama mywatchlist di proyek Django Tugas 2 pekan lalu**
@@ -57,51 +57,17 @@ Untuk menyajikan data dalam JSON, saya membuat fungsi `show_json` dan `show_json
 Untuk menyajikan data dalam XML, saya membuat fungsi `show_xml` dan `show_xml_by_id` pada file `views.py` yang akan mereturn HttpResponse yang berisi parameter data hasil query yang sudah diserialisasi menjadi XML dan parameter content_type="application/xml".
 
 **Membuat routing sehingga data di atas dapat diakses melalui URL:**
+*http://localhost:8000/mywatchlist/html untuk mengakses mywatchlist dalam format HTML*
+`path('html/', show_mywatchlist, name='show_mywatchlist')` Menambahkan kode tersebut pada `urlpatterns`
 
-Di dalam fungsi saya memanggil query ke model database lalu menyimpan hasil query yang diperoleh ke suatu variabel.
-```shell
-catalog_data = CatalogItem.objects.all()
-    context = {
-    'catalog_data': catalog_data,
-    'nama': 'Rahmat Bryan Naufal',
-    'npm': '2106635650'
-    }
-```
-Lalu saya mereturn sebuah halaman HTML yang dirender. Saya juga menambahkan context pada argumen agar context juga dirender sehingga data bisa muncul pada halaman HTML.
+*http://localhost:8000/mywatchlist/xml untuk mengakses mywatchlist dalam format XML*
+`path('xml/', show_xml, name='show_xml')` Menambahkan kode tersebut pada `urlpatterns`
 
-**Poin2**
-Routings dilakukan pada file urls.py
-pada urls.py di folder katalog saya tambahkan kode berikut
-```shell
-app_name = 'katalog'
+*http://localhost:8000/mywatchlist/json untuk mengakses mywatchlist dalam format JSON*
+`path('json/', show_json, name='show_json')` Menambahkan kode tersebut pada `urlpatterns`
 
-urlpatterns = [
-    path('', show_katalog, name='show_katalog'),
-]
-```
-
-pada urls.py di folder project_django saya menambahkan path pada urlpatterns
-```shell
-path('katalog/', include('katalog.urls'))
-```
-Dengan melakukan kedua hal di atas, ketika kita dapat mengakses halaman katalog dengan memasukkan url dengan /katalog
-
-**Poin3**
-Context yang ikut dirender pada poin 1 perlu saya masukkan pada template HTML menggunakan sintaks Django. Saya melakukan iterasi kepada catalogs. Iterasi tersebut masih berupa objek sehingga kita perlu memanggil atributnya secara langsung. Berikut kode yang ditambahkan pada template HTML katalog:
-```shell
-{% for catalog in catalog_data %}
-      <tr>
-        <th>{{ catalog.item_name }}</th>
-        <th>{{ catalog.item_price }}</th>
-        <th>{{ catalog.item_stock }}</th>
-        <th>{{ catalog.rating }}</th>
-        <th>{{ catalog.description }}</th>
-        <th>{{ catalog.item_url }}</th>
-      </tr>
-    {% endfor %}
-```
-**Poin4**
-Pertama-tama, saya membuat aplikasi baru pada Heroku, lalu simpan nama aplikasi tersebut beserta key account saya. Lakukan pull, add, commit, dan push repositori tugas-2 yang ada di lokal. Setelah itu, kita perlu menambahkan dua variabel repositori secret pada github. Variabel tersebut digunakan untuk menyimpan nama aplikasi pada heroku dan juga key heroku saya. Setelah itu, kita dapat mendeploy aplikasi kita.
+**Melakukan deployment ke Heroku terhadap aplikasi yang sudah kamu buat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet.**
+Variabel `HEROKU_API_KEY` dan `HEROKU_APP_NAME` sudah berhasil ditambahkan pada tugas sebelumnya. Lalu, pada `Procfile` tamabahkan `python manage.py loaddata initial_mywatchlist_data.json` agar data dapat ke load di heroku.
 
 ## Link Aplikasi Katalog Tugas-2
 Berikut link yang dapat diakses untuk membuka aplikasi yang sudah berhasil di-deploy
@@ -110,3 +76,8 @@ Berikut link yang dapat diakses untuk membuka aplikasi yang sudah berhasil di-de
 ## Credits
 
 Template ini dibuat berdasarkan [PBP Ganjil 2021](https://gitlab.com/PBP-2021/pbp-lab) yang ditulis oleh Tim Pengajar Pemrograman Berbasis Platform 2021 ([@prakashdivyy](https://gitlab.com/prakashdivyy)) dan [django-template-heroku](https://github.com/laymonage/django-template-heroku) yang ditulis oleh [@laymonage, et al.](https://github.com/laymonage). Template ini dirancang sedemikian rupa sehingga mahasiswa dapat menjadikan template ini sebagai awalan serta acuan dalam mengerjakan tugas maupun dalam berkarya.
+
+#### Mengakses tiga URL di poin 6 menggunakan Postman, menangkap screenshot, dan menambahkannya ke dalam README.md
+![](https://github.com/bryannaufal/Tugas-2/blob/main/mywatchlist/assets/mywatchlist_html.png)
+![](https://github.com/bryannaufal/Tugas-2/blob/main/mywatchlist/assets/mywatchlist_json.png)
+![](https://github.com/bryannaufal/Tugas-2/blob/main/mywatchlist/assets/mywatchlist_xml.png)
