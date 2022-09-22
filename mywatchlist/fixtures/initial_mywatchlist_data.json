@@ -1,6 +1,6 @@
 [
     {
-        "model": "mywatchlist.watchitem",
+        "model": "mywatchlist.mywatchlist",
         "pk": 1,
         "fields": {
             "watched": "True",
@@ -11,7 +11,7 @@
         }
     },
     {
-        "model": "mywatchlist.watchitem",
+        "model": "mywatchlist.mywatchlist",
         "pk": 2,
         "fields": {
             "watched": "True",
@@ -22,7 +22,7 @@
         }
     },
     {
-        "model": "mywatchlist.watchitem",
+        "model": "mywatchlist.mywatchlist",
         "pk": 3,
         "fields": {
             "watched": "True",
@@ -33,7 +33,7 @@
         }
     },
     {
-        "model": "mywatchlist.watchitem",
+        "model": "mywatchlist.mywatchlist",
         "pk": 4,
         "fields": {
             "watched": "False",
@@ -44,7 +44,7 @@
         }
     },
     {
-        "model": "mywatchlist.watchitem",
+        "model": "mywatchlist.mywatchlist",
         "pk": 5,
         "fields": {
             "watched": "True",
@@ -55,7 +55,7 @@
         }
     },
     {
-        "model": "mywatchlist.watchitem",
+        "model": "mywatchlist.mywatchlist",
         "pk": 6,
         "fields": {
             "watched": "False",
@@ -66,7 +66,7 @@
         }
     },
     {
-        "model": "mywatchlist.watchitem",
+        "model": "mywatchlist.mywatchlist",
         "pk": 7,
         "fields": {
             "watched": "False",
@@ -77,7 +77,7 @@
         }
     },
     {
-        "model": "mywatchlist.watchitem",
+        "model": "mywatchlist.mywatchlist",
         "pk": 8,
         "fields": {
             "watched": "True",
@@ -88,7 +88,7 @@
         }
     },
     {
-        "model": "mywatchlist.watchitem",
+        "model": "mywatchlist.mywatchlist",
         "pk": 9,
         "fields": {
             "watched": "False",
@@ -99,7 +99,7 @@
         }
     },
     {
-        "model": "mywatchlist.watchitem",
+        "model": "mywatchlist.mywatchlist",
         "pk": 10,
         "fields": {
             "watched": "True",
