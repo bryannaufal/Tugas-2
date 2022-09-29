@@ -1,4 +1,4 @@
-# Tugas-3 (PBP)
+# Tugas-4 (PBP)
 
 Pemrograman Berbasis Platform (CSGE602022) - diselenggarakan oleh Fakultas Ilmu Komputer Universitas Indonesia, Semester Ganjil 2022/2023
 
@@ -10,74 +10,77 @@ Pemrograman Berbasis Platform (CSGE602022) - diselenggarakan oleh Fakultas Ilmu 
 
 ## Deskripsi Tugas
 
-Pengimplementasian Data Delivery Menggunakan Django
+Pengimplementasian Form dan Autentikasi Menggunakan Django
 
 ## Jawaban Pertanyaan
 
-#### Jelaskan perbedaan antara JSON, XML, dan HTML!
+#### Apa kegunaan `{% csrf_token %}` pada elemen <form>? Apa yang terjadi apabila tidak ada potongan kode tersebut pada elemen `<form>`?
 
-*JSON (JavaScript Object Notation)*
-JSON digunakan untuk menyimpan, membaca, serta menukar informasi dari web server agar dapat dilihat oleh pengguna. JSON sendiri dapat digunakan oleh berbagai bahasa pemrograman. JSON menyimpan elemennya secara efisien tapi tidak begitu rapi ketika dilihat. JSON juga punya array yang membuat transfer data lebih mudah
+csrf_tokem berfungsi untuk melindungi dari Cross-Site Request Forgery attack. Token berupa value acak yang panjang sehingga sulit untuk ditebak dan token harus berbeda di setiap user session. Token tersebut akan digunakan sebagai parameter tambahan ketika ingin menjalankan suatu syntax pada suatu website. Oleh karena itu, hanya web tersebut sajalah yang bisa menjalankan syntax karena terdapat tokennya, sedangkan web lain tidak dapat menjalankan syntax pada sesuatu web karena tidak punya tokennya.
+Jadi jika tidak ada potongan kode `{% csrf_token %}` pada elemen `<form>` maka website lain dapat menjalankan syntax ke suatu web karena tidak diperlukan token
 
-*XML (Extensible Markup Language)*
-Sama seperti JSON, XML digunakan untuk menyimpan, membaca, serta menukar informasi dari web server agar dapat dilihat oleh pengguna. XML menyimpan elemennya lebih terstruktur tapi lebih tidak efisien dibandingkan JSON.
+### Apakah kita dapat membuat elemen `<form>` secara manual (tanpa menggunakan generator seperti `{{ form.as_table }}`)? Jelaskan secara gambaran besar bagaimana cara membuat `<form>` secara manual.
 
-*HTML (Hypertext Markup Language)*
-HTML digunakan sebagai kerangka dari suatu website. HTML biasanya digunakan bersama dengan CSS untuk mempercantik tampilan website
+Kita dapat membuat elemen `<form>` secara manual. Caranya adalah dengan membuat field input pada HTML dan juga button untuk mengeksekusi POST request ke dalam server. Dengan membuat `<form>` secara manual, kita dapat membuatnya dengan tampilan yang lebih fleksibel (bebas semua kita).
 
-#### Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
-Sebuah website atau aplikasi yang dinamis tentu bisa menampilkan dan menerima banyak dan berbagai macam jenis data. Untuk mengirim dan menerima data tersebut agar dapat dipahami oleh kita sebagai manusia dan program komputer maka terdapat ketentuan-ketentuan atau format tertentu dalam mengerim dan menerima data tersebut. JSON, XML, dan HTML merupakan beberapa dari ketentuan dan format yang digunakan untuk data_delivery.
+### Jelaskan proses alur data dari submisi yang dilakukan oleh pengguna melalui HTML form, penyimpanan data pada database, hingga munculnya data yang telah disimpan pada template HTML.
 
-#### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
-**Membuat suatu aplikasi baru bernama mywatchlist di proyek Django Tugas 2 pekan lalu**
-Saya membuka folder yang sama dengan tugas 2 kemarin melalui cmd, lalu nyalakan virtual environment. Setelah itu, saya menjalankan perintah `python manage.py startapp mywatchlist` sehingga django app `mywatchlist` terbuat.
+Ketika user menakan tombol submit, maka HTTP request, beserta method dan agumennya di kirim ke server. Di server, akan ditentukan views.py mana yang diperlukan. Setelah itu, segala hal yang di request di lakukan, seperti penyimpanan data ke database. Setelah itu, server akan kembali meresponse dengan menampilkan template yang sesuai. Data yang telah diubah juga dapat ditampilan pada template tertentu ke user.
 
-**Menambahkan path mywatchlist sehingga pengguna dapat mengakses http://localhost:8000/mywatchlist**
-Pertama-tama saya menambahkan `mywatchlist` pada `INSTALLED_APPS` yang terletak pada file `settings.py` di folder `project_django` untuk mendaftarkan app mywatchlist. Selanjutnya, saya melakukan routings.
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
+
+**Membuat suatu aplikasi baru bernama todolist di proyek tugas Django yang sudah digunakan sebelumnya.**
+Saya membuka folder yang sama dengan tugas 2 kemarin melalui cmd, lalu nyalakan virtual environment. Setelah itu, saya menjalankan perintah `python manage.py startapp todolist` sehingga django app `todolist` terbuat. Lalu tambahkan `todolist` pada `INSTALLED_APPS` yang terdapat pada settings.py yang berlokasi di folder project_django.
+
+**Menambahkan path todolist sehingga pengguna dapat mengakses http://localhost:8000/todolist.**
+
 Routings dilakukan pada file urls.py
-pada urls.py di folder mywatchlist saya tambahkan kode berikut
+pada urls.py di folder todolist saya tambahkan kode berikut
 ```shell
-app_name = 'mywatchlist'
+app_name = 'todolist'
 
 urlpatterns = [
-    path('', show_mywatchlist, name='show_mywatchlist'),
+    path('', show_todolist, name='show_todolist'),
 ]
 ```
-show_mywatchlist akan dibuat di `views.py` pada nantinya.
+Fungsi show_todolist akan dibuat di `views.py` pada nantinya.
 
-**Membuat sebuah model MyWatchList yang memiliki atribut sebagai berikut:**
-Pebmuatan model dilakukan di `models.py` pada foder `mywatchlist`. Pertama-tama, saya membuat class `MyWatchList` yang memiliki atribut-atribut yang sudah ditentukan dengan data types yang menyesuaikan setiap atribut. Setelah itu, saya menjalankan perintah `python manage.py makemigrations` dan `python manage.py migrate` untuk melakukan migrasi.
+pada `urlpatterns` di `urls.py` di folder project_django tambahkan `path('todolist/', include('todolist.urls'))`
+```shell
+urlpatterns = [
+    path('todolist/', include('todolist.urls')),
+]
+```
+**Membuat sebuah model Task yang memiliki atribut sebagai berikut:**
 
-**Menambahkan minimal 10 data untuk objek MyWatchList yang sudah dibuat di atas**
-data dibuat pada file `initial_mywatchlist_data.json` pada folder `fixtures`. Data yang dibuat berupa JSON.
+Pebmuatan model dilakukan di `models.py` pada foder `todolist`. Pertama-tama, saya membuat class `Task` yang memiliki atribut-atribut yang sudah ditentukan dengan data types yang menyesuaikan setiap atribut. Setelah itu, saya menjalankan perintah `python manage.py makemigrations` dan `python manage.py migrate` untuk melakukan migrasi.
 
-**Mengimplementasikan sebuah fitur untuk menyajikan data yang telah dibuat sebelumnya dalam tiga format:**
-Untuk menyajikan data dalam HTML, saya membuat fungsi `show_mywatchlist` pada file `views.py`. Fungsi tersebut akan mengembalikan HttpResponse dengan parameter mywatchlist.html dan juga context.
-Untuk menyajikan data dalam JSON, saya membuat fungsi `show_json` dan `show_json_by_id` pada file `views.py` yang akan mereturn HttpResponse yang berisi parameter data hasil query yang sudah diserialisasi menjadi JSON dan parameter content_type="application/json".
-Untuk menyajikan data dalam XML, saya membuat fungsi `show_xml` dan `show_xml_by_id` pada file `views.py` yang akan mereturn HttpResponse yang berisi parameter data hasil query yang sudah diserialisasi menjadi XML dan parameter content_type="application/xml".
+**Mengimplementasikan form registrasi, login, dan logout agar pengguna dapat menggunakan todolist dengan baik.**
 
-**Membuat routing sehingga data di atas dapat diakses melalui URL:**
-*http://localhost:8000/mywatchlist/html untuk mengakses mywatchlist dalam format HTML*
-`path('html/', show_mywatchlist, name='show_mywatchlist')` Menambahkan kode tersebut pada `urlpatterns`
+Di `views.py` membuat fungsi register, login_user, logout user. Lalu buat template berupa file HTML untuk menampilkan form regis, form login, dan juga tombol logout. `@login_required(login_url='/todolist/login/')` tambahkan kode diatas pada sebelum fungsi-fungsi di `views.py` yang memerlukan login untuk mengaksesnya.
 
-*http://localhost:8000/mywatchlist/xml untuk mengakses mywatchlist dalam format XML*
-`path('xml/', show_xml, name='show_xml')` Menambahkan kode tersebut pada `urlpatterns`
+**Membuat halaman utama todolist yang memuat username pengguna, tombol Tambah Task Baru, tombol logout, serta tabel berisi tanggal pembuatan task, judul task, dan deskripsi task.**
 
-*http://localhost:8000/mywatchlist/json untuk mengakses mywatchlist dalam format JSON*
-`path('json/', show_json, name='show_json')` Menambahkan kode tersebut pada `urlpatterns`
+Halaman utama todolist dibuat pada file `todolist.html`
+
+**Membuat halaman form untuk pembuatan task. Data yang perlu dimasukkan pengguna hanyalah judul task dan deskripsi task.**
+
+Halaman untuk pembuatan task dibuat pada file `form_task.html`
+
+**Membuat routing sehingga beberapa fungsi dapat diakses melalui URL berikut:**
+
+Pada `urls.py` pada folder todolist tambahakan
+```shell
+path('', show_todolist, name='show_todolist'),
+path('register/', register, name='register'),
+path('login/', login_user, name='login'),
+path('logout/', logout_user, name='logout'),
+path('create-task/', create_task, name='create-task'),
+path('<id>/delete/', delete_task, name='delete-task'),
+path('<id>/update/', update_task, name='update-task'),
+```
+pada urlpatterns.
 
 **Melakukan deployment ke Heroku terhadap aplikasi yang sudah kamu buat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet.**
-Variabel `HEROKU_API_KEY` dan `HEROKU_APP_NAME` sudah berhasil ditambahkan pada tugas sebelumnya. Lalu, pada `Procfile` tamabahkan `python manage.py loaddata initial_mywatchlist_data.json` agar data dapat ke load di heroku.
 
-## Link Aplikasi Katalog Tugas-2
-Berikut link yang dapat diakses untuk membuka aplikasi yang sudah berhasil di-deploy
-[PBP-Tugas-2](https://katalog-tugas-2.herokuapp.com/)
-
-## Credits
-
-Template ini dibuat berdasarkan [PBP Ganjil 2021](https://gitlab.com/PBP-2021/pbp-lab) yang ditulis oleh Tim Pengajar Pemrograman Berbasis Platform 2021 ([@prakashdivyy](https://gitlab.com/prakashdivyy)) dan [django-template-heroku](https://github.com/laymonage/django-template-heroku) yang ditulis oleh [@laymonage, et al.](https://github.com/laymonage). Template ini dirancang sedemikian rupa sehingga mahasiswa dapat menjadikan template ini sebagai awalan serta acuan dalam mengerjakan tugas maupun dalam berkarya.
-
-#### Mengakses tiga URL di poin 6 menggunakan Postman, menangkap screenshot, dan menambahkannya ke dalam README.md
-![](https://github.com/bryannaufal/Tugas-2/blob/main/mywatchlist/assets/mywatchlist_html.png)
-![](https://github.com/bryannaufal/Tugas-2/blob/main/mywatchlist/assets/mywatchlist_json.png)
-![](https://github.com/bryannaufal/Tugas-2/blob/main/mywatchlist/assets/mywatchlist_xml.png)
+Karena repositori sudah terhubung dengan hereko dari tugas-tugas sebelumnya, maka kita hanya perlu add commit dan push. Setelah itu, tunggu web di deploy dan web bisa diakses melalui internet.

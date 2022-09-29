@@ -8,12 +8,11 @@
 
 <div class = "create-task">
     
-    <h1>Formulir Registrasi</h1>  
+    <h1>Create Task Form</h1>  
 
         <form method="POST" >  
-            {% csrf_token %}  
             <table>  
-                {{ form.as_table }}  
+                {{ task.as_table }}  
                 <tr>  
                     <td></td>
                     <td><input type="submit" value="Create Task"/></td>  
