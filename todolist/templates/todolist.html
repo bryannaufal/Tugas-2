@@ -19,7 +19,7 @@
             <div class="max-w-sm rounded overflow-hidden shadow-lg">
                 <div class="px-6 py-4">
                 <div class="font-bold text-xl mb-2">{{todolist.title}}</div>
-                <div class="font-semibold text-sm mb-2">{{todolist.title}}</div>
+                <div class="font-semibold text-sm mb-2">{{todolist.date}}</div>
                 <p class="text-gray-700 text-base">{{todolist.description}}</p>
                 <div class="font-semibold text-sm mb-2">{% if todolist.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</div>
                 <button><a href="{% url 'todolist:update-task' todolist.id %}">Update Task</a></button>
