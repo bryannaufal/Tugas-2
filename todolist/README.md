@@ -84,3 +84,70 @@ pada urlpatterns.
 **Melakukan deployment ke Heroku terhadap aplikasi yang sudah kamu buat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet.**
 
 Karena repositori sudah terhubung dengan hereko dari tugas-tugas sebelumnya, maka kita hanya perlu add commit dan push. Setelah itu, tunggu web di deploy dan web bisa diakses melalui internet.
+
+
+## Deskripsi Tugas
+
+Web Design Using HTML, CSS, and CSS Framework
+
+## Jawaban Pertanyaan
+
+### Apa perbedaan dari Inline, Internal, dan External CSS? Apa saja kelebihan dan kekurangan dari masing-masing style?
+
+Inline: Kode css untuk styling ditaruh Sejajar dengan kode HTMLnya
+`<h1 class = "text-6xl font-extrabold  text-center mb-6">Sign Up</h1> ` (contoh)
+kelebihan
+- Tidak perlu buat file lain
+- Bagus untuk memantau perubahan-perubahan
+kekurangan
+- Kode HTML jadi terlalu ramai
+- agak nguli untuk masang di tiap element
+
+Internal: Kode css ada di dalam file HTML, tapi tidak sejajar dengan kode HTMLnya melainkan ditaruh bagian paling atas pada kode HTML
+kelebihan
+- Bisa memanfaatkan id dan class selector
+- Tidak perlu buat file lain
+kekurangan
+- kode HTML jadi terkesan panjang
+- loading time membesar
+
+External: Kode css ditaruh berbeda file dengan file HTML
+kelebihan
+- Kode HTML jadi lebih bersih
+- Bisa pakai styling yang sama untuk halaman-halaman yang berbeda
+kekurangan:
+- Semakin banyak file yang terkoneksi, download time jadi semakin lama
+
+### Jelaskan tag HTML5 yang kamu ketahui.
+`<p>` Untuk membuat paragraf
+`<h1>` sampai `<h6>` Untuk membuat header
+`<div>` Untuk mebagi bagian-bagian pada HTML
+`<a>` Untuk mencantumkan hyperlink
+`<tr>` Baris dari sebuah tabel
+`<td>` Cell dari sebuah tabel
+`<img>` Untuk memasukkan image
+`<input>` Untuk melakukan input
+`<main>` Menandakan konten utama
+`<button>` Untuk membuat sebuah tombol
+
+
+### Jelaskan tipe-tipe CSS selector yang kamu ketahui.
+**1. Element Selector**
+Mengambil tag dari HTML untuk nantinya properti pada tag tersebut akan diubah-ubah
+**2. Id Selector**
+Sebuah id dicantumkan pada tag HTML, lalu di file CSS gunakan Id tersebut sebagai selector
+**3. Class Selector**
+Sebuah class dicantumkan pada tag HTML, lalu di file CSS gunakan class tersebut sebagai selector
+
+id dan class sekilas mirip, tetapi pada file CSS selector id ditulis didahului dengan `#` sedangkan class selector ditulis didahuli dengan `.`
+id hanya bisa digunakan hanya satu elemen
+class dapat digunakan untuk banyak elemen
+
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
+`<script src="https://cdn.tailwindcss.com"></script>`
+Menambahkan Script ini pada base HTML untuk menggunakan tailwind untuk mempercantik tampilan web
+
+Menggunakan Tailwind untuk mempercantik tampilan Web
+
+**Membuat suatu aplikasi baru bernama todolist di proyek tugas Django yang sudah digunakan sebelumnya.**
