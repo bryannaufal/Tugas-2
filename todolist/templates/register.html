@@ -6,29 +6,41 @@
 
 {% block content %}  
 
-<div class = "login">
-    
-    <h1>Formulir Registrasi</h1>  
+<div class = "min-h-screen flex flex-col items-center justify-center sm:min-h-screen">
+    <div class = "login bg-[#f6dB00] rounded-2xl shadow-lg max-w-[40%] p-5">
+        
+        <h1 class = "text-6xl font-extrabold  text-center mb-6">Sign Up</h1>  
 
-        <form method="POST" >  
-            {% csrf_token %}  
-            <table>  
-                {{ form.as_table }}  
-                <tr>  
-                    <td></td>
-                    <td><input type="submit" name="submit" value="Daftar"/></td>  
-                </tr>  
-            </table>  
-        </form>
+            <form method="POST" >  
+                {% csrf_token %}  
+                <table style="margin-left:auto;margin-right:auto;" class="content-center">  
+                    <tr>
+                        <td class = "text-center">Username</td>
+                    </tr> 
+                    <tr>  
+                        <td><input type="text" name="username" placeholder="Username" required class="form-control rounded-3xl p-1 w-full" text-align="center"></td>  
+                    </tr>  
+                    <tr>
+                        <td class = "text-center">Password</td>
+                    </tr> 
+                    <tr>  
+                        <td><input type="password" name="password1" placeholder="Password" required class="form-control rounded-3xl p-1 w-full" text-align="center"></td>  
+                    </tr>  
+                    <tr>
+                        <td class = "text-center">Password Confirmation</td>
+                    </tr> 
+                    <tr>  
+                        <td><input type="password" name="password2" placeholder="Password Confirm" required class="form-control rounded-3xl p-1 w-full" text-align="center"></td>  
+                    </tr>  
+                    {% for message in messages %}
+                    <h1 class="text-sm text-red-500 mt-2">{{ message }}</h1>
+                    {% endfor %}
+                    <tr>
+                        <td><input class="btn login_btn mt-5 mb-5 p-1 bg-black rounded-lg w-full text-white font-bold" type="submit" name="Sign Up" value="Regist"></td>
+                    </tr>
+                </table>  
+            </form>
 
-    {% if messages %}  
-        <ul>   
-            {% for message in messages %}  
-                <li>{{ message }}</li>  
-                {% endfor %}  
-        </ul>   
-    {% endif %}
-
-</div>  
-
+    </div>  
+</div>
 {% endblock content %}

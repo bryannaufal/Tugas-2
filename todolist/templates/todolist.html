@@ -1,35 +1,33 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<h2>Username: {{nama}}</h2>
 
-<button><a href="{% url 'todolist:create-task' %}">Tambah Task Baru</a></button>
-
-<table border="1">
-    <tr>
-    <th>Tanggal Pembuatan</th>
-    <th>Judul</th>
-    <th>Deskripsi</th>
-    <th>Status</th>
-    </tr>
-    {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
-    {% for todolist in data_todolist %}
-        <tr>
-            <th>{{todolist.date}}</th>
-            <th>{{todolist.title}}</th>
-            <th>{{todolist.description}}</th>
-            <th>{% if todolist.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</th>
-            <th>
+<div>
+  <header class="sticky top-0 z-50">
+    <nav class="bg-[#f6dB00] px-2 sm:px-4 py-2.5 ">
+      <div class="container flex flex-wrap justify-between items-center mx-auto">
+        <h1 class="self-center text-2xl font-extrabold">{{ nama }} Todo's</h1>
+        <div class="flex gap-4">
+          <button class="p-1 bg-black rounded-lg w-full text-white font-bold"><a href="{% url 'todolist:create-task' %}">Create Task</a></button>
+          <button class="p-1 bg-black rounded-lg w-full text-white font-bold"><a href="{% url 'todolist:logout' %}">Logout</a></button>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main class=relative>
+    <div class="flex-none min-h-screen grid grid-cols-1 md:grid-cols-3 border-4  lg:grid-cols-4 sm:grid-cols-2 gap-10">
+        {% for todolist in data_todolist %}
+            <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2">{{todolist.title}}</div>
+                <div class="font-semibold text-sm mb-2">{{todolist.title}}</div>
+                <p class="text-gray-700 text-base">{{todolist.description}}</p>
+                <div class="font-semibold text-sm mb-2">{% if todolist.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</div>
                 <button><a href="{% url 'todolist:update-task' todolist.id %}">Update Task</a></button>
-            </th>
-            <th>
                 <button><a href="{% url 'todolist:delete-task' todolist.id %}">Delete Task</a></button>
-            </th>
-        </tr>
-    {% endfor %}
-
-</table>
-
-<button><a href="{% url 'todolist:logout' %}">Logout</a></button>
+            </div>
+        {% endfor %}
+    </div>
+  </main>
+</div>
 
 {% endblock content %}
