@@ -1,47 +1,48 @@
 {% extends 'base.html' %}
+
 {% block content %}
 
 <head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script>
-      $(document).ready(function () {
-          loadData();
-  
-          $('#add-task').click(function () {
-              $.post(
-                  '/todolist/add/',
-                  {
-                      title: $('#title').val(),
-                      description: $('#description').val(),
-                  },
-                  function (data, status) {
-                      if (status == 'success') {
-                          $(`#grid_card`).append(card(data))
-                          $('#title').val('')
-                          $('#description').val('')
-                      }
-                  },
-              )
-          })
-      });
-  
-      function deleteCard(id) {
-          $.ajax({
-              url: `/todolist/delete/${id}`,
-              type: 'DELETE',
-              success: function (result) {
-                  $(`#id-${id}`).remove()
-              }
-          });
-      }
-  
-      function updateCard(id) {
-          $.ajax({
-              url: `/todolist/update/${id}`,
-              type: 'PATCH',
-              success: function (data) {
-                  $(`#id-${id}`).empty()
-                  $(`#id-${id}`).append(
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            loadData();
+
+            $('#add-task').click(function () {
+                $.post(
+                    '/todolist/add/',
+                    {
+                        title: $('#title').val(),
+                        description: $('#description').val(),
+                    },
+                    function (data, status) {
+                        if (status == 'success') {
+                            $(`#grid_card`).append(card(data))
+                            $('#title').val('')
+                            $('#description').val('')
+                        }
+                    },
+                )
+            })
+        });
+
+        function deleteCard(id) {
+            $.ajax({
+                url: `/todolist/delete/${id}`,
+                type: 'DELETE',
+                success: function (result) {
+                    $(`#task-${id}`).remove()
+                }
+            });
+        }
+
+        function updateCard(id) {
+            $.ajax({
+                url: `/todolist/update/${id}`,
+                type: 'PATCH',
+                success: function (data) {
+                    $(`#task-${id}`).empty()
+                    $(`#task-${id}`).append(
                       `<div class="rounded overflow-hidden shadow-lg">
                         <div class="font-bold text-xl mb-2">${data.fields.title}</div>
                         <div class="font-semibold text-sm mb-2">${data.fields.date}</div>
@@ -50,13 +51,13 @@
                         <button onclick="updateCard(${data.pk})">Update Task</a></button>
                         <button onclick="deleteCard(${data.pk})">Delete Task</a></button>
                       </div>`
-                  )
-              }
-          });
-      }
-  
-      const card = (data) =>
-          `<div class="max-w-sm" id="id-${data.pk}>
+                    )
+                }
+            });
+        }
+
+        const card = (data) =>
+        `<div class="max-w-sm" id="task-${data.pk}>
             <div class="rounded overflow-hidden shadow-lg">
               <div class="font-bold text-xl mb-2">${data.fields.title}</div>
               <div class="font-semibold text-sm mb-2">${data.fields.date}</div>
@@ -66,35 +67,26 @@
               <button onclick="deleteCardCard(${data.pk})">Delete Task</a></button>
             </div>
           </div>`
-  
-      function loadData() {
-          $.get(`/todolist/json`, function (data) {
-              for (var i = 0; i < data.length; i++) {
-                  $(`#grid_card`).append(card(data[i]));
-              }
-          });
-      }
-  </script>
+
+        function loadData() {
+            $.get(`/todolist/json`, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $(`#grid_card`).append(card(data[i]));
+                }
+            });
+        }
+    </script>
 </head>
 
-
-<div>
-  <header class="sticky top-0 z-50">
-    <nav class="bg-[#f6dB00] px-2 sm:px-4 py-2.5 ">
-      <div class="container flex flex-wrap justify-between items-center mx-auto">
-        <h1 class="self-center text-2xl font-extrabold">{{ nama }} Todo's</h1>
-        <div class="flex gap-4">
-          <button type="button" class="p-1 bg-black rounded-lg w-full text-white font-bold" data-bs-toggle="modal" data-bs-target="#myModal">Create Task</button>
-          <button class="p-1 bg-black rounded-lg w-full text-white font-bold"><a href="{% url 'todolist:logout' %}">Logout</a></button>
-        </div>
-      </div>
-    </nav>
-  </header>
-  <main class=relative>
-    <div class="grid gap-4 grid-cols-1 sm:grid-flow-cols-1 md:grid-cols-3 lg:grid-cols-4 m-4" id="grid_card">
+<nav class="bg-[#f6dB00] px-2 sm:px-4 py-2.5 ">
+  <div class="container flex flex-wrap justify-between items-center mx-auto">
+    <h1 class="self-center text-2xl font-extrabold">{{ nama }} Todo's</h1>
+    <div class="flex gap-4">
+      <button type="button" class="p-1 bg-black rounded-lg w-full text-white font-bold" data-bs-toggle="modal" data-bs-target="#myModal">Create Task</button>
+      <button class="p-1 bg-black rounded-lg w-full text-white font-bold"><a href="{% url 'todolist:logout' %}">Logout</a></button>
     </div>
-  </main>
-</div>
+  </div>
+</nav>
 
 <!-- The Modal -->
 <div class="modal" id="myModal">
@@ -138,4 +130,8 @@
     </div>s
   </div>
 </div>
+
+<div class="grid gap-4 grid-cols-1 sm:grid-flow-cols-1 md:grid-cols-3 lg:grid-cols-4 m-4" id="grid_card">
+</div>
+<!-- <ion-icon name="trash-outline" idCard=${data.pk} id="delete-icon" onclick="deleteCard()"></ion-icon> -->
 {% endblock content %}
