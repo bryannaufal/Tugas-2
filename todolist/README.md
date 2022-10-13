@@ -151,3 +151,29 @@ Menambahkan Script ini pada base HTML untuk menggunakan tailwind untuk mempercan
 Menggunakan Tailwind untuk mempercantik tampilan Web
 
 **Membuat suatu aplikasi baru bernama todolist di proyek tugas Django yang sudah digunakan sebelumnya.**
+
+
+## Deskripsi Tugas
+
+Javascript dan AJAX
+
+## Jawaban Pertanyaan
+
+### Jelaskan perbedaan antara asynchronous programming dengan synchronous programming.
+**Asynchronous Programming**
+Program dapat berjalan secara pararel, yang berarti suatu program bisa berjalan tanpa harus menunggu program lainnya berjalan
+
+**Synchronous Programming**
+Berlawanan dengan Asynchronous Programming, Synchronous Programming tidak bisa pararel sehingga program hanya bisa dilakukan secara berurutan
+
+### Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma Event-Driven Programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.
+Event-Driven Programming adalah ketika sebuah event terjadi baru suatu program dapat tereksekusi. Contoh penerapan pada tugas ini adalah ketika tombol Add Task ditekan ketika kita ingin menambahkan suatu Task, setelah tombol ditekan, baru Task ditambahkan.
+
+### Jelaskan penerapan asynchronous programming pada AJAX.
+Dengan AJAX, kita dapat melakukan pembaruan pada halaman website tanpa harus mereload seluruhnya.
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
+Menambahkan fungsi baru di views.py
+Menambahkan urlpatterns baru di urls.py
+Menerapkan jquery pada todolist.html
+

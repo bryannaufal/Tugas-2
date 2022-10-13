@@ -1,33 +1,141 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+      $(document).ready(function () {
+          loadData();
+  
+          $('#add-task').click(function () {
+              $.post(
+                  '/todolist/add/',
+                  {
+                      title: $('#title').val(),
+                      description: $('#description').val(),
+                  },
+                  function (data, status) {
+                      if (status == 'success') {
+                          $(`#grid_card`).append(card(data))
+                          $('#title').val('')
+                          $('#description').val('')
+                      }
+                  },
+              )
+          })
+      });
+  
+      function deleteCard(id) {
+          $.ajax({
+              url: `/todolist/delete/${id}`,
+              type: 'DELETE',
+              success: function (result) {
+                  $(`#id-${id}`).remove()
+              }
+          });
+      }
+  
+      function updateCard(id) {
+          $.ajax({
+              url: `/todolist/update/${id}`,
+              type: 'PATCH',
+              success: function (data) {
+                  $(`#id-${id}`).empty()
+                  $(`#id-${id}`).append(
+                      `<div class="rounded overflow-hidden shadow-lg">
+                        <div class="font-bold text-xl mb-2">${data.fields.title}</div>
+                        <div class="font-semibold text-sm mb-2">${data.fields.date}</div>
+                        <p class="text-gray-700 text-base">${data.fields.description}</p>
+                        <div class="font-semibold text-sm mb-2">{% if data.fields.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</div>
+                        <button onclick="updateCard(${data.pk})">Update Task</a></button>
+                        <button onclick="deleteCard(${data.pk})">Delete Task</a></button>
+                      </div>`
+                  )
+              }
+          });
+      }
+  
+      const card = (data) =>
+          `<div class="max-w-sm" id="id-${data.pk}>
+            <div class="rounded overflow-hidden shadow-lg">
+              <div class="font-bold text-xl mb-2">${data.fields.title}</div>
+              <div class="font-semibold text-sm mb-2">${data.fields.date}</div>
+              <p class="text-gray-700 text-base">${data.fields.description}</p>
+              <div class="font-semibold text-sm mb-2">{% if data.fields.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</div>
+              <button onclick="updateCard(${data.pk})">Update Task</a></button>
+              <button onclick="deleteCardCard(${data.pk})">Delete Task</a></button>
+            </div>
+          </div>`
+  
+      function loadData() {
+          $.get(`/todolist/json`, function (data) {
+              for (var i = 0; i < data.length; i++) {
+                  $(`#grid_card`).append(card(data[i]));
+              }
+          });
+      }
+  </script>
+</head>
+
+
 <div>
   <header class="sticky top-0 z-50">
     <nav class="bg-[#f6dB00] px-2 sm:px-4 py-2.5 ">
       <div class="container flex flex-wrap justify-between items-center mx-auto">
         <h1 class="self-center text-2xl font-extrabold">{{ nama }} Todo's</h1>
         <div class="flex gap-4">
-          <button class="p-1 bg-black rounded-lg w-full text-white font-bold"><a href="{% url 'todolist:create-task' %}">Create Task</a></button>
+          <button type="button" class="p-1 bg-black rounded-lg w-full text-white font-bold" data-bs-toggle="modal" data-bs-target="#myModal">Create Task</button>
           <button class="p-1 bg-black rounded-lg w-full text-white font-bold"><a href="{% url 'todolist:logout' %}">Logout</a></button>
         </div>
       </div>
     </nav>
   </header>
   <main class=relative>
-    <div class="flex-none min-h-screen grid grid-cols-4 gap-5">
-        {% for todolist in data_todolist %}
-            <div class="max-w-sm rounded overflow-hidden shadow-lg">
-                <div class="px-6 py-4">
-                <div class="font-bold text-xl mb-2">{{todolist.title}}</div>
-                <div class="font-semibold text-sm mb-2">{{todolist.date}}</div>
-                <p class="text-gray-700 text-base">{{todolist.description}}</p>
-                <div class="font-semibold text-sm mb-2">{% if todolist.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</div>
-                <button><a href="{% url 'todolist:update-task' todolist.id %}">Update Task</a></button>
-                <button><a href="{% url 'todolist:delete-task' todolist.id %}">Delete Task</a></button>
-            </div>
-        {% endfor %}
+    <div class="grid gap-4 grid-cols-1 sm:grid-flow-cols-1 md:grid-cols-3 lg:grid-cols-4 m-4" id="grid_card">
     </div>
   </main>
 </div>
 
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Create Task</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form action="" method="POST" class="">
+          {% csrf_token %}
+
+          <div>
+              <label for="title">Title</label>
+          </div>
+          <div>
+              <input type="text" name="title" maxlength="150" id="title"
+                  class="form-control text-sm rounded-lg p-2 w-full">
+          </div>
+          <div>
+              <label for="description">Description</label>
+          </div>
+          <div>
+              <input type="text" name="description" maxlength="150" id="description"
+                  class="form-control text-sm rounded-lg p-2 w-full">
+          </div>
+        </form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="add-task">Add Task</button>
+      </div>
+
+    </div>s
+  </div>
+</div>
 {% endblock content %}
