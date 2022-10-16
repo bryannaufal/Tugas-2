@@ -24,6 +24,15 @@
                     },
                 )
             })
+            $('#delete').click(function (id) {
+              $.ajax({
+                url: `/todolist/delete/${id}`,
+                type: 'DELETE',
+                success: function (result) {
+                    $(`#task-${id}`).remove()
+                }
+              });
+            })
         });
 
         function deleteCard(id) {
@@ -63,8 +72,8 @@
               <div class="font-semibold text-sm mb-2">${data.fields.date}</div>
               <p class="text-gray-700 text-base">${data.fields.description}</p>
               <div class="font-semibold text-sm mb-2">{% if data.fields.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</div>
-              <button onclick="updateCard(${data.pk})">Update Task</a></button>
-              <button onclick="deleteCardCard(${data.pk})">Delete Task</a></button>
+              <button id="update" onclick="updateCard(${data.pk})">Update Task</a></button>
+              <button id="delete" onclick="deleteCardCard(${data.pk})">Delete Task</a></button>
             </div>
           </div>`
 

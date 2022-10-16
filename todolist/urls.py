@@ -1,4 +1,3 @@
-from tkinter.messagebox import showerror
 from django.urls import path
 from todolist.views import delete_task_ajax, register, login_user, logout_user, show_json, show_todolist, create_task, delete_task, update_task, delete_task_ajax, add_task_ajax, update_task_ajax, show_json
 
